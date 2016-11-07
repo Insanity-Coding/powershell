@@ -1,9 +1,9 @@
 #########################################################
-#				Mailbox managing tool														#
-#																												#
-# 	Version 1.3																					#
-# 	27.10.2016		04.11.2016														#
-# 	Erstellt Christoph Becker														#
+#	Mailbox managing tool				#
+#							#
+# 	Version 1.3					#
+# 	27.10.2016		04.11.2016		#
+# 	created by Insanity©				#
 #########################################################
 
 ##	SET STRINGS AND VARIABLES
@@ -204,11 +204,13 @@ do
 				Write-Host ""
 				Write-Host "CREATION OF THE LIST"$list
 				Write-Host ""
-				$alias_full = read-host "> ALIAS"
-				$owner = read-host "> OWNER"
-				$psmtp = $alias_full +"@hamburgsud.com"
+				$alias_full = read-host "> ALIAS" #The alias can be different from the actual AD object name
+				$owner = read-host "> OWNER" #Owner of the distribution list
+				$psmtp = $alias_full + "" #set the SMTP suffix for your company between the two <"">
 				New-DistributionGroup -name $list -Alias $alias_full -DisplayName $alias_full -OrganizationalUnit $ou_full -ManagedBy $owner -MemberDepartRestriction Closed -MemberJoinRestriction Closed -PrimarySmtpAddress $psmtp | Out-Null
 				Set-DistributionGroup -identity $list -RequireSenderAuthenticationEnabled $False
+<#
+# You can create a copy&paste solution for your ticket tool below which will printed out on your console.
 				Write-Host ""
 				Write-Host "######## COPY FOR RESOLUTION ########"
 				Write-Host "Created following list:"
@@ -219,6 +221,7 @@ do
 				Write-Host "The distribution list is already able to receive emails."
 				Write-Host "#####################################"
 				Write-Host ""
+#>
 				}
 			Write-Host "Press any key to return to main menu ..."
 			$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
